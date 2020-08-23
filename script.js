@@ -9,7 +9,7 @@ const todoContainer = document.querySelector('.todo-container');
 const textTodo = document.querySelector('.text-todo');
 
 
-const todoData = [
+const todoData = JSON.parse(localStorage.getItem('todoData')) || [
         {
             value: 'задача 1',
             completed: false
@@ -42,26 +42,15 @@ const render = function(){
         const btnTodoComplete = li.querySelector('.todo-complete');
         btnTodoComplete.addEventListener('click', function(){
             item.completed = !item.completed;
+            headerButton.addEventListener('click', function(){
+                localStorage.setItem('todoData', JSON.stringify(todoData));
+            });
+            localStorage.setItem('todoData', JSON.stringify(todoData));
             render();
 
         });
-        console.log(textTodo);
 
-
-        const showText = function(){
-            textTodo.textContent = JSON.parse(localStorage.getItem('todoData'));
-        };
-
-        headerButton.addEventListener('click', function(){
-            localStorage.setItem('todoData', JSON.stringify(todoData));
-
-            showText();
-        });
     });
-
-
-
-
 };
 
 todoControl.addEventListener('submit', function(event){
@@ -72,10 +61,19 @@ todoControl.addEventListener('submit', function(event){
     };
     if(headerInput.value) {
         todoData.push(newToDo);
-        render();
         headerInput.value = '';
+        localStorage.setItem('todoData', JSON.stringify(todoData));
+        render();
     } else return;
+});
 
+let index = todoData.indexOf(5);
+
+todoRemove.addEventListener('click', function () {
+
+    if (index > -1) {
+        todoData.splice(index, 1);
+    }
 
 });
 
