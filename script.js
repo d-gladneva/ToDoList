@@ -8,7 +8,16 @@ const todoItem = document.querySelector('.todo-item');
 const todoContainer = document.querySelector('.todo-container');
 const textTodo = document.querySelector('.text-todo');
 
-const todoData = JSON.parse(localStorage.getItem('todoData'));
+const todoData = JSON.parse(localStorage.getItem('todoData'))|| [
+    {
+        value: 'task 1',
+        completed: false
+    },
+    {
+        value: 'task  2',
+        completed: true
+    }
+];
 
 const render = function(){
     todoList.textContent = '';
